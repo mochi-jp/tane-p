@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>簡易計算機</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .result {
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 200px;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #ffcc66;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="result">
+    <span id="result">--</span> ページ
+  </div>
+
+  <input type="number" id="totalPages" placeholder="総ページ数" /><br />
+  <input type="number" id="seedNumber" placeholder="種番号" /><br />
+  <button onclick="calculate()">計算する</button>
+
+  <script>
+    function calculate() {
+      const totalPages = parseInt(document.getElementById("totalPages").value, 10);
+      const seedNumber = parseInt(document.getElementById("seedNumber").value, 10);
+
+      if (isNaN(totalPages) || isNaN(seedNumber)) {
+        document.getElementById("result").textContent = "入力不備";
+        return;
+      }
+
+      const result = totalPages - Math.floor(seedNumber / 12);
+      document.getElementById("result").textContent = result;
+    }
+  </script>
+</body>
+</html>
