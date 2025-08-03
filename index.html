@@ -66,9 +66,7 @@
   <input type="number" id="seedNumber" placeholder="種番号" /><br />
   <button onclick="calculate()">計算する</button>
 
-  <!-- ✅ ここは script の外！ -->
-  <a class="button" href="numbers.html">▶ Numbers4予測へ</a>
-
+  <!-- ✅ 種BOXボタンだけ残したよ！ -->
   <a class="button" href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&" target="_blank">
     🌱 種BOXを開く
   </a>
@@ -78,7 +76,6 @@
     ※ セッション切れだと飛べないことがあります。
   </p>
 
-  <!-- ✅ JSはここにまとめる -->
   <script>
     function calculate() {
       const totalPages = parseInt(document.getElementById("totalPages").value, 10);
