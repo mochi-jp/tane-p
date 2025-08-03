@@ -62,14 +62,30 @@
     <span id="result">--</span> ページ
   </div>
 
-  <input type="number" id="totalPages" placeholder="総ページ数" /><br />
-  <input type="number" id="seedNumber" placeholder="種番号" /><br />
+  <!-- ✅ inputmode追加でスマホの数字キーボード対応 -->
+  <input
+    type="number"
+    inputmode="numeric"
+    id="totalPages"
+    placeholder="総ページ数"
+  /><br />
 
-  <button class="action-button" onclick="calculate()">計算する</button>
+  <input
+    type="number"
+    inputmode="numeric"
+    id="seedNumber"
+    placeholder="種番号"
+  /><br />
+
+  <button class="action-button" id="calcBtn" onclick="calculate()">計算する</button>
 
   <hr class="divider" />
 
-  <a class="action-button" href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&" target="_blank">
+  <a
+    class="action-button"
+    href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&"
+    target="_blank"
+  >
     🌱 種BOXを開く
   </a>
 
@@ -91,6 +107,22 @@
       const result = totalPages - Math.floor(seedNumber / 12);
       document.getElementById("result").textContent = result;
     }
+
+    // ✅ Enterキーで順番に移動・実行
+    document.getElementById("totalPages").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        document.getElementById("seedNumber").focus();
+      }
+    });
+
+    document.getElementById("seedNumber").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        calculate();
+        document.getElementById("calcBtn").blur(); // ボタンにフォーカス残らないように
+      }
+    });
   </script>
 </body>
 </html>
