@@ -62,19 +62,23 @@
     <span id="result">--</span> ページ
   </div>
 
-  <!-- ✅ inputmode追加でスマホの数字キーボード対応 -->
+  <!-- ✅ type="text" + inputmode="numeric" に変更 -->
   <input
-    type="number"
+    type="text"
     inputmode="numeric"
+    pattern="[0-9]*"
     id="totalPages"
     placeholder="総ページ数"
+    autocomplete="off"
   /><br />
 
   <input
-    type="number"
+    type="text"
     inputmode="numeric"
+    pattern="[0-9]*"
     id="seedNumber"
     placeholder="種番号"
+    autocomplete="off"
   /><br />
 
   <button class="action-button" id="calcBtn" onclick="calculate()">計算する</button>
@@ -108,19 +112,34 @@
       document.getElementById("result").textContent = result;
     }
 
-    // ✅ Enterキーで順番に移動・実行
-    document.getElementById("totalPages").addEventListener("keydown", function (e) {
+    // ✅ iPhone対応：keydown と blur 両方で処理
+    const totalPagesInput = document.getElementById("totalPages");
+    const seedNumberInput = document.getElementById("seedNumber");
+
+    totalPagesInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        document.getElementById("seedNumber").focus();
+        seedNumberInput.focus();
       }
     });
 
-    document.getElementById("seedNumber").addEventListener("keydown", function (e) {
+    totalPagesInput.addEventListener("blur", () => {
+      if (totalPagesInput.value !== "") {
+        seedNumberInput.focus();
+      }
+    });
+
+    seedNumberInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         calculate();
-        document.getElementById("calcBtn").blur(); // ボタンにフォーカス残らないように
+        document.getElementById("calcBtn").blur();
+      }
+    });
+
+    seedNumberInput.addEventListener("blur", () => {
+      if (seedNumberInput.value !== "") {
+        calculate();
       }
     });
   </script>
