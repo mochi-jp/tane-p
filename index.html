@@ -40,7 +40,14 @@
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
-      margin-top: 15px;
+      margin-top: 10px;
+    }
+
+    hr.divider {
+      width: 220px;
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
     }
 
     p.note {
@@ -58,8 +65,9 @@
   <input type="number" id="totalPages" placeholder="総ページ数" /><br />
   <input type="number" id="seedNumber" placeholder="種番号" /><br />
 
-  <!-- ✅ ボタン類を同じ class で統一！ -->
   <button class="action-button" onclick="calculate()">計算する</button>
+
+  <hr class="divider" />
 
   <a class="action-button" href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&" target="_blank">
     🌱 種BOXを開く
