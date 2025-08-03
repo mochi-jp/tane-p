@@ -1,147 +1,52 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>簡易計算機</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+<!-- 入力欄などは変更なし、省略 -->
+<script>
+  function calculate() {
+    const totalPages = parseInt(document.getElementById("totalPages").value, 10);
+    const seedNumber = parseInt(document.getElementById("seedNumber").value, 10);
+
+    if (isNaN(totalPages) || isNaN(seedNumber)) {
+      document.getElementById("result").textContent = "入力不備";
+      return;
     }
 
-    .result {
-      font-weight: bold;
-      font-size: 1.3em;
-      margin-bottom: 10px;
-    }
+    const result = totalPages - Math.floor(seedNumber / 12);
+    document.getElementById("result").textContent = result;
+  }
 
-    input {
-      width: 200px;
-      padding: 8px;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
+  const totalPagesInput = document.getElementById("totalPages");
+  const seedNumberInput = document.getElementById("seedNumber");
 
-    .action-button {
-      width: 200px;
-      padding: 10px;
-      font-size: 16px;
-      background-color: #ffcc66;
-      color: black;
-      text-align: center;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-top: 10px;
-    }
-
-    hr.divider {
-      width: 220px;
-      border: none;
-      border-top: 1px solid #ccc;
-      margin: 20px 0;
-    }
-
-    p.note {
-      font-size: 14px;
-      color: #555;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-<body>
-  <div class="result">
-    <span id="result">--</span> ページ
-  </div>
-
-  <!-- ✅ type="text" + inputmode="numeric" に変更 -->
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    id="totalPages"
-    placeholder="総ページ数"
-    autocomplete="off"
-  /><br />
-
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    id="seedNumber"
-    placeholder="種番号"
-    autocomplete="off"
-  /><br />
-
-  <button class="action-button" id="calcBtn" onclick="calculate()">計算する</button>
-
-  <hr class="divider" />
-
-  <a
-    class="action-button"
-    href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&"
-    target="_blank"
-  >
-    🌱 種BOXを開く
-  </a>
-
-  <p class="note">
-    ※ GREEにログイン済みのブラウザで開いてください。<br />
-    ※ セッション切れだと飛べないことがあります。
-  </p>
-
-  <script>
-    function calculate() {
-      const totalPages = parseInt(document.getElementById("totalPages").value, 10);
-      const seedNumber = parseInt(document.getElementById("seedNumber").value, 10);
-
-      if (isNaN(totalPages) || isNaN(seedNumber)) {
-        document.getElementById("result").textContent = "入力不備";
-        return;
-      }
-
-      const result = totalPages - Math.floor(seedNumber / 12);
-      document.getElementById("result").textContent = result;
-    }
-
-    // ✅ iPhone対応：keydown と blur 両方で処理
-    const totalPagesInput = document.getElementById("totalPages");
-    const seedNumberInput = document.getElementById("seedNumber");
-
-    totalPagesInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
+  // ⬇ iPhone Safari対応：Enterで次に進みつつキーボード出す
+  totalPagesInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setTimeout(() => {
         seedNumberInput.focus();
-      }
-    });
+        seedNumberInput.click(); // 擬似タップでキーボード強制表示
+      }, 100);
+    }
+  });
 
-    totalPagesInput.addEventListener("blur", () => {
-      if (totalPagesInput.value !== "") {
+  totalPagesInput.addEventListener("blur", () => {
+    if (totalPagesInput.value !== "") {
+      setTimeout(() => {
         seedNumberInput.focus();
-      }
-    });
+        seedNumberInput.click(); // blurでも保険で出す
+      }, 100);
+    }
+  });
 
-    seedNumberInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        calculate();
-        document.getElementById("calcBtn").blur();
-      }
-    });
+  seedNumberInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      calculate();
+      document.getElementById("calcBtn").blur();
+    }
+  });
 
-    seedNumberInput.addEventListener("blur", () => {
-      if (seedNumberInput.value !== "") {
-        calculate();
-      }
-    });
-  </script>
-</body>
-</html>
+  seedNumberInput.addEventListener("blur", () => {
+    if (seedNumberInput.value !== "") {
+      calculate();
+    }
+  });
+</script>
