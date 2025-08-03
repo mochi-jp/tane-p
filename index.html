@@ -29,25 +29,18 @@
       font-size: 16px;
     }
 
-    button {
+    .action-button {
       width: 200px;
       padding: 10px;
       font-size: 16px;
       background-color: #ffcc66;
+      color: black;
+      text-align: center;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-    }
-
-    a.button {
-      display: inline-block;
-      margin: 10px;
-      padding: 15px 25px;
-      font-size: 18px;
-      background-color: #28a745;
-      color: white;
       text-decoration: none;
-      border-radius: 8px;
+      margin-top: 15px;
     }
 
     p.note {
@@ -64,10 +57,11 @@
 
   <input type="number" id="totalPages" placeholder="総ページ数" /><br />
   <input type="number" id="seedNumber" placeholder="種番号" /><br />
-  <button onclick="calculate()">計算する</button>
 
-  <!-- ✅ 種BOXボタンだけ残したよ！ -->
-  <a class="button" href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&" target="_blank">
+  <!-- ✅ ボタン類を同じ class で統一！ -->
+  <button class="action-button" onclick="calculate()">計算する</button>
+
+  <a class="action-button" href="https://tgarden.gree.jp/?mode=garden&act=modify&type=1&from_garden=sp_home_top_garden_modify_type_1_garden_edit&" target="_blank">
     🌱 種BOXを開く
   </a>
 
